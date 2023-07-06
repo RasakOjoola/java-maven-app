@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven'
+        maven 'maven-3.6'
     }
     stages {
         stage('build jar') {
@@ -12,7 +12,7 @@ pipeline {
                 }
             }
         }
-                stage('build imagr') {
+                stage('build image') {
                     steps {
                         script {
                             echo "Building docker image..."
