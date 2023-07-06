@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+    tools {
+        maven 'Maven'
+    }
+    stages {
+        stage('build jar') {
+            steps {
+                script {
+                    echo "Building the application..."
+                    sh 'mvn package'
+                }
+            }
+        }
+                stage('build imagr') {
+                    steps {
+                        script {
+                            echo "Building docker image..."
+                            withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariables: 'PASS',
+                            usernameVariable:'USER' )]) {
+                                sh 'docker build -t rasakojoola/my-repo:jma-2.0 .'
+                                sh "echo $PASS | docker login -u $USER --password-stdin"
+                                sh 'docker push rasakojoola/my-repo:jma-2.0 '
+                            }
+                        }
+                    }
+                }
+
+        stage('deploy') {
+            steps {
+                script {
+                    echo "Deploying the application..."
+                }
+            }
+        }
+    }
+}
