@@ -1,7 +1,4 @@
-#!/usr/bin/env groovy
-
 def gv
-
 pipeline {
     agent any
     tools {
@@ -18,25 +15,20 @@ pipeline {
         stage("build jar") {
             steps {
                 script {
-                      echo "building jar"
-                      gv.buildJar()
-                      //buildJar()
+                    gv.buildJar()
                 }
             }
         }
         stage("build image") {
             steps {
                 script {
-                    // buildImage()
-                     echo "building image"
-                     gv.buildImage()
+                    gv.buildImage()
                 }
             }
         }
         stage("deploy") {
             steps {
                 script {
-                    echo "deploying"
                     gv.deployApp()
                 }
             }
