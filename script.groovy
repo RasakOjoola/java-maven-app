@@ -1,7 +1,7 @@
 def buildJar() {
     echo "building the application..."
     sh 'mvn package'
-} 
+}
 
 def buildImage() {
     echo "building the docker image..."
@@ -10,10 +10,10 @@ def buildImage() {
         sh "echo $PASS | docker login -u $USER --password-stdin"
         sh 'docker push rasakojoola/my-repo:jma-2.0'
     }
-} 
+}
 
 def deployApp() {
-    echo 'deploying the application...'
-} 
+    echo 'deploying the applicationn...'
+}
 
 return this
