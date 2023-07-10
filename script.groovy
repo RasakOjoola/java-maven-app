@@ -11,9 +11,9 @@
 //        sh 'docker push rasakojoola/my-repo:jma-2.0'
 //    }
 //}
-//
-//def deployApp() {
-//    echo 'deploying the applicationn...'
-//}
-//
-//return this
+
+def deployApp() {
+    echo 'deploying the applicationn...'
+}
+
+return this
