@@ -24,7 +24,7 @@ pipeline {
         stage("build image") {
             steps {
                 script {
-                     buildImage()
+                     buildImage(rasakojoola/my-repo:jma-3.0)
                      //echo "building image"
                      // gv.buildImage()
                 }
