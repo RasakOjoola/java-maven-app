@@ -1,36 +1,44 @@
-pipeline {
-    agent none
-    stages {
-        stage('test') {
-            steps {
-                script {
-                    echo "Testing the application..."
-                    echo "Executing pipeline for branch $BRANCH_NAME"
+#!/usr/bin/env groovy
 
+@Library('myJenkins-shared-lib')
+def gv
+
+pipeline {
+    agent any
+    tools {
+        maven 'Maven'
+    }
+    stages {
+        stage("init") {
+            steps {
+                script {
+                    gv = load "script.groovy"
                 }
             }
         }
-        stage('build') {
-            when{
-                expression{
-                    BRANCH_NAME == 'master'
-                }
-            }
+        stage("build jar") {
             steps {
                 script {
-                    echo "Building the application..."
+                     //echo "building jar"
+                     // gv.buildJar()
+                      buildJar()
                 }
             }
         }
-        stage('deploy') {
-            when{
-                expression{
-                    BRANCH_NAME == 'master'
-                }
-            }
+        stage("build image") {
             steps {
                 script {
-                    echo "Deploying the application..."
+                     buildImage()
+                     //echo "building image"
+                     // gv.buildImage()
+                }
+            }
+        }
+        stage("deploy") {
+            steps {
+                script {
+                    echo "deploying"
+                    gv.deployApp()
                 }
             }
         }
