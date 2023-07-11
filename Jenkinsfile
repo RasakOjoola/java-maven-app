@@ -24,10 +24,12 @@ pipeline {
                 }
             }
         }
-        stage("build image") {
+        stage("build and push image") {
             steps {
                 script {
                     buildImage 'rasakojoola/my-repo:jma-3.0'
+                    dockerLogin()
+                    dockerPush 'rasakojoola/my-repo:jma-3.0'
                 }
             }
         }
